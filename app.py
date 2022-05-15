@@ -1,8 +1,9 @@
 from audioop import add
 from calendar import month
 from distutils.spawn import spawn
+from itertools import product
 from posixpath import split
-from models import (Base, Product, engine)
+from models import (Base, session, Product, engine)
 import datetime
 import csv
 
@@ -51,19 +52,68 @@ def clean_date(date_str):
         return return_date
 
 
+def clean_id(id_str, options):
+    
+    try:
+        book_id = int(id_str)  
+    
+    except ValueError:
+         input(""""
+            \n ***** ID ERROR *****
+            \r The ID numbers should be a number
+            \r Press enter to try again.
+            """
+            )
+    
+    else:
+        if book_id in options:
+            return book_id
+        
+        else:
+            input('''
+            \n Pleae select from avaible options
+            \r Press enter to try again.
+            ''')
+            return 
+
+
+
+
+
+
+
+
+
+
 def add_csv():
     with open('inventory.csv') as csvfile:
         data = csv.reader(csvfile)
+        next(data)
         for row in data:
-            # print(type(row[-1]))
-            pass
+            product_in_db = (session.query(Product).filter(Product.product_name == row[0]).one_or_none())
+
+            if product_in_db == None:
+                print(row)
+                product_name = row[0]
+                product_price = clean_price(row[1])
+                product_quantity = int(row[2])
+                date_updated = clean_date(row[3])
+                new_product = Product(product_name=product_name,
+                                    product_price=product_price,
+                                    product_quantity=product_quantity,
+                                    date_updated=date_updated)
+                session.add(new_product)
+        
+        session.commit()
+
 
 
 
 
 if __name__ == '__main__':
     # Base.metadata.create_all(engine)
-    # add_csv()
+    add_csv()
     # clean_date('9/22/2018')
-    clean_price('$4.30')
+    # clean_price('$4.30')
+    
 
