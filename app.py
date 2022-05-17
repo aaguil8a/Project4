@@ -8,9 +8,7 @@ import datetime
 import csv
 
 def clean_price(price_str):
-    
-    
-    
+
     try:
         split_price = float(price_str.split('$')[1])
     
@@ -76,14 +74,8 @@ def clean_id(id_str, options):
             ''')
             return 
 
-
-
-
-
-
-
-
-
+def add_product():
+    pass 
 
 def add_csv():
     with open('inventory.csv') as csvfile:
@@ -91,9 +83,7 @@ def add_csv():
         next(data)
         for row in data:
             product_in_db = (session.query(Product).filter(Product.product_name == row[0]).one_or_none())
-
             if product_in_db == None:
-                print(row)
                 product_name = row[0]
                 product_price = clean_price(row[1])
                 product_quantity = int(row[2])
@@ -106,14 +96,27 @@ def add_csv():
         
         session.commit()
 
+def menu():
+
+    choice = input('enter: v, a, b').lower()
+    
+    if choice == 'v':
+        id_options = []
+        for item in session.query(Product):
+            id_options.append(item.product_id)
+            
+
+        
+        print(id_options)
+
 
 
 
 
 if __name__ == '__main__':
     # Base.metadata.create_all(engine)
-    add_csv()
-    # clean_date('9/22/2018')
-    # clean_price('$4.30')
+    # add_csv()
+    menu()
+
     
 
