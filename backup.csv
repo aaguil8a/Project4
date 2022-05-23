@@ -1,10 +1,10 @@
 product_name,product_price,product_quantity,date_updated
 Bagel - Whole White Sesame,430,97,2018-11-01 00:00:00
-Sauce - Caesar Dressing,805,81,2018-12-28 00:00:00
+Sauce - Caesar Dressing,825,16,2019-04-10 00:00:00
 Shiratamako - Rice Flour,799,71,2018-03-07 00:00:00
 Tart - Raisin And Pecan,106,86,2019-01-18 00:00:00
 Radish,247,22,2018-11-06 00:00:00
-Juice - V8 Splash,125,67,2018-01-10 00:00:00
+Juice - V8 Splash,114,67,2018-01-13 00:00:00
 Red Currants,677,49,2018-10-01 00:00:00
 Soup - Base Broth Beef,544,62,2019-03-09 00:00:00
 Tomatoes Tear Drop Yellow,64,73,2019-02-09 00:00:00
@@ -27,3 +27,5 @@ Wine - Chateau Bonnet,741,54,2018-03-10 00:00:00
 dd,555,55,2011-06-06 00:00:00
 adfsd,555,55,0021-01-05 00:00:00
 x,751,13,2022-01-15 00:00:00
+Did this add,655,59,0023-05-19 00:00:00
+Doesthiswork,888,555,2025-05-05 00:00:00

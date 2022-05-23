@@ -26,18 +26,21 @@ def get_productID():
 
 
 def add_product():
-    product = input('Enter the product: ')
+    
+    input_name = input('Enter the product: ')
+    
 
     price_error = True
     while price_error:
-        price = clean_price(input('Price: Ex., $5.51: '))
-        if type(price) == int:
+        input_price = clean_price(input('Price: Ex., $5.51: '))
+        if type(input_price) == int:
             price_error = False
+    
 
     quantity_error = True
     while quantity_error:
         try:
-            quantity = int(input('Quantity: Ex., 56: '))
+            input_quantity = int(input('Quantity: Ex., 56: '))
             quantity_error = False
         except ValueError:
             input('''
@@ -49,7 +52,26 @@ def add_product():
         date = clean_date(input("Date: ex. 5/19/2022)"))
         if type(date) == datetime.date:
             date_error = False
+
+    product_in_db = session.query(Product).filter(Product.product_name == input_name).one_or_none()
+    if product_in_db is None:
+        new_product = Product(
+            product_name=input_name,
+            product_quantity=input_quantity,
+            product_price=input_price,
+            date_updated=date
+        )
+        session.add(new_product)
+        session.commit()
+        print(f'"{input_name}" your producted as been: added!')
+        time.sleep(1.5)
+
+        
     time.sleep(1.5)
+
+
+
+
 
 def backup_csv():
     print('New database filename is backup.csv')

@@ -16,14 +16,23 @@ def add_csv():
         next(data)
         for row in data:
             product_in_db = (session.query(Product).filter(Product.product_name == row[0]).one_or_none())
-            if product_in_db == None:
+            if product_in_db is None:
                 product = row[0]
                 price = clean_price(row[1])
                 quantity = int(row[2])
                 date = clean_date(row[3])
                 new_product = Product(product_name=product, product_price=price, product_quantity=quantity, date_updated=date)
                 session.add(new_product)
-        
+                
+            elif product_in_db is not None:
+                new_date = clean_date(row[3])
+                product = (session.query(Product)
+                           .filter(Product.product_name == row[0]).first())
+                product.product_price = clean_price(row[1])
+                product.product_quantity = int(row[2])
+                product.date_updated = new_date
+
+               
         session.commit()
 
 
